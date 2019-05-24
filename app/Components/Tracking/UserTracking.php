@@ -43,19 +43,6 @@ class UserTracking extends Model
                 });
         }
 
-        static::$resolved[$number]->saveCurrentGarage();
-
         return static::$resolved[$number];
-    }
-
-    public function saveCurrentGarage()
-    {
-        $scheme = $this->getScheme();
-
-        foreach (resolve('garage')->getCars() as $car) {
-            $scheme->addCar($car);
-        }
-
-        $this->data = $scheme->toArray();
     }
 }

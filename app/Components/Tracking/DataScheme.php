@@ -25,34 +25,6 @@ class DataScheme extends RawPayload
         ];
     }
 
-    public function addIfNotExists($key, $value)
-    {
-        $arr = $this->get($key, []);
-
-        if (!in_array($value, $arr)) {
-            array_push($arr, $value);
-
-            $this->set($key, $arr);
-        }
-
-        return $this;
-    }
-
-    public function addVinCar(CarModel $model, string $vin)
-    {
-        foreach ($this->get('garage') as $index => $key) {
-            [$modelId, $modification] = explode(':', $key);
-
-            if ($model->getKey() == $modelId && $model->getCarModification() == $modification) {
-                $this->set("garage.$index", "$modelId:$modification:$vin");
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public function merge(DataScheme $scheme)
     {
         $this->set('garage', array_merge($this->get('garage'), $scheme->get('garage')));

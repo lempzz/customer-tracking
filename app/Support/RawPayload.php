@@ -105,4 +105,22 @@ class RawPayload
     {
         return array_get($this->payload, $key, $default);
     }
+
+    /**
+     * @param string|null $key
+     * @param mixed $value
+     * @return $this
+    */
+    public function addIfNotExists($key, $value)
+    {
+        $arr = $this->get($key, []);
+
+        if (!in_array($value, $arr)) {
+            array_push($arr, $value);
+
+            $this->set($key, $arr);
+        }
+
+        return $this;
+    }
 }

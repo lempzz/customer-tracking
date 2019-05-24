@@ -20,8 +20,8 @@ class TrackingMiddleware
         if ($request->has('tel')) {
             $this->tracking->set(UserTracking::phone($request->get('phone')));
         } elseif (
-            $request->hasCookie(TrackingService::ANALYTIC_COOKIE_KEY) &&
-            $analytic = UserTracking::find($request->cookie(TrackingService::ANALYTIC_COOKIE_KEY))
+            $request->hasCookie(TrackingService::TRACKING_COOKIE_KEY) &&
+            $analytic = UserTracking::find($request->cookie(TrackingService::TRACKING_COOKIE_KEY))
         ) {
             $this->tracking->set($analytic);
         }

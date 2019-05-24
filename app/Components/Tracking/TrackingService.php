@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Cookie;
 
 class TrackingService implements TrackingInterface
 {
-    const ANALYTIC_COOKIE_KEY = 'atl_user';
+    const TRACKING_COOKIE_KEY = 'track_id';
 
     /**
      * @var UserTracking
@@ -31,19 +31,6 @@ class TrackingService implements TrackingInterface
         $this->scheme = $analytic->getScheme()->merge($this->scheme);
     }
 
-    public function addCar(CarModel $model)
-    {
-        $this->scheme->addIfNotExists(
-            'garage',
-            sprintf('%s:%s:%s', $model->getKey(), $model->getModification(), $model->getVinNumber())
-        );
-    }
-
-    public function addVinCar(CarModel $model, string $vin)
-    {
-        $this->scheme->addVinCar($model, $vin);
-    }
-
     public function addGoogleId(string $id)
     {
         $this->scheme->addIfNotExists('ga', $id);
@@ -62,7 +49,7 @@ class TrackingService implements TrackingInterface
     public function cookie() : Cookie
     {
         return Cookie::create(
-            TrackingService::ANALYTIC_COOKIE_KEY,
+            TrackingService::TRACKING_COOKIE_KEY,
             $this->model->getKey(),
             date('c', strtotime('+5 year')),
             '/',

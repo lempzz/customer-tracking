@@ -9,10 +9,6 @@ interface TrackingInterface
 {
     public function set(UserTracking $analytic);
 
-    public function addCar(CarModel $model);
-
-    public function addVinCar(CarModel $model, string $vin);
-
     public function addGoogleId(string $id);
 
     public function setName(string $name);
